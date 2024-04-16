@@ -10,7 +10,7 @@ func (p *Package) String() string {
 	return fmt.Sprintf("Package name: %s", p.Name)
 }
 
-var AllEntities = []*Package{
+var AllEntities = []Package{
 	{ Name: "Коробка"},
 	{ Name: "Ящик"},
 	{ Name: "Конверт"},

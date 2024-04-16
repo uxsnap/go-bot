@@ -1,26 +1,36 @@
 package packageCommander
 
 import (
-	"fmt"
 	"log"
+	"strconv"
+	"strings"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 )
 
 func (c *PackageCommander) Get(inputMessage *tgbotapi.Message) {
-	text := "Here're the available commands: \n\n"
+	args := strings.Split(inputMessage.Text, " ")
 
-	for _, v := range AVAILABLE_COMMANDS {
-		text += fmt.Sprintf("/%v\n", v)
+	if len(args) < 2 {
+		log.Printf("Not enough arguments! Command: Get")
+		return  
 	}
 
-	msg := tgbotapi.NewMessage(inputMessage.Chat.ID, text)
+	id, convErr := strconv.Atoi(args[1])
 
-	sentMsg, err := c.bot.Send(msg)
+	if convErr != nil {
+		log.Printf("Error: %v \nCommand: Get", convErr.Error())
+		return
+	}
+
+	packageItem, err := c.packageService.Get(id)
 
 	if err != nil {
-		log.Println(err.Error())
-	} else {
-		log.Printf("Help command invoked for chat %v with message %v", inputMessage.Chat.Title, sentMsg.Text)
-	}
+		log.Printf("Error: %v \nCommand: Get", err.Error())
+		return
+	} 
+
+	msg := tgbotapi.NewMessage(inputMessage.Chat.ID, packageItem.String())
+
+	c.bot.Send(msg)
 }

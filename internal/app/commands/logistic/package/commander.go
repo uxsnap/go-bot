@@ -26,26 +26,22 @@ func NewPackageCommander(
 
 func (c *PackageCommander) HandleCallback(callback *tgbotapi.CallbackQuery, callbackPath path.CallbackPath) {
 	switch callbackPath.CallbackName {
-	// case "list":
-	// 	c.CallbackList(callback, callbackPath)
+	case "list":
+		c.CallbackList(callback, callbackPath)
 	default:
 		log.Printf("PackageCommander.HandleCallback: unknown callback name: %s", callbackPath.CallbackName)
 	}
 }
 
 func (c *PackageCommander) HandleCommand(msg *tgbotapi.Message, commandPath path.CommandPath) {
-
-
 	switch commandPath.CommandName {
 	case "help":
 		c.Help(msg)
 	case "new":
 		c.New(msg)
-	// case "list":
-	// 	c.List(msg)
-	// case "get":
-	// 	c.Get(msg)
-	// default:
-	// 	c.Default(msg)
+	case "get":
+		c.Get(msg)
+	case "list":
+		c.List(msg)
 	}
 }
