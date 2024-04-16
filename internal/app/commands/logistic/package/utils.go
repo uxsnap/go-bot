@@ -61,3 +61,7 @@ func (c *PackageCommander) sendList(chatID int64, cursor int) {
 		log.Panic(err)
 	}
 }
+
+func isOutOfBoundaries(id int) bool {
+	return id > len(logistic.AllEntities) || id < 0;
+}

@@ -43,5 +43,7 @@ func (c *PackageCommander) HandleCommand(msg *tgbotapi.Message, commandPath path
 		c.Get(msg)
 	case "list":
 		c.List(msg)
+	case "delete":
+		c.Delete(msg)
 	}
 }

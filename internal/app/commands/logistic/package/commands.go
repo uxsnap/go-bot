@@ -5,4 +5,5 @@ var AVAILABLE_COMMANDS = map[string]string{
 	"new": "new_logistic_package",
 	"get": "get_logistic_package",
 	"list": "list_logistic_package",
+	"delete": "delete_logistic_package",
 }

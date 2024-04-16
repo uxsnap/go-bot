@@ -23,7 +23,12 @@ func (c *PackageCommander) Get(inputMessage *tgbotapi.Message) {
 		return
 	}
 
-	packageItem, err := c.packageService.Get(id)
+	if isOutOfBoundaries(id) {
+		log.Println("Out of boundaries, \nCommand: Get")
+		return
+	}
+
+	packageItem, err := c.packageService.Get(uint64(id))
 
 	if err != nil {
 		log.Printf("Error: %v \nCommand: Get", err.Error())
